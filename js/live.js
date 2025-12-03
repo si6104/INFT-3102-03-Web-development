@@ -107,8 +107,21 @@ async function loadLiveMovieData() {
 
     // Check if the request was successful
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `HTTP ${response.status}`);
+      // Check if response is HTML (404 page) instead of JSON
+      const contentType = response.headers.get('content-type');
+      
+      if (contentType && contentType.includes('text/html')) {
+        // Serverless function not available (likely running locally)
+        throw new Error('Serverless function not available. Deploy to Netlify to see live data.');
+      }
+      
+      // Try to parse error as JSON
+      try {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP ${response.status}`);
+      } catch (e) {
+        throw new Error(`Failed to load data (HTTP ${response.status})`);
+      }
     }
 
     // Parse JSON response asynchronously
