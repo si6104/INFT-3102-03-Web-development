@@ -1,23 +1,16 @@
 /* 
-  File: eleventy.config.js
+  File: eleventy.config.cjs
   Description: Eleventy configuration file for MovieLog with Contentful integration.
   Author: Sai Trivedi
   Date: 2025-11-13
 */
 
-import dotenv from "dotenv";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-dotenv.config();
-
-// Get __dirname equivalent in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
 
 // Eleventy Configuration File
-export default function(eleventyConfig) {
+module.exports = function(eleventyConfig) {
   
   // Copy CSS files, images, and JavaScript to output
   eleventyConfig.addPassthroughCopy("css");
@@ -126,4 +119,4 @@ export default function(eleventyConfig) {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk"
   };
-}
+};
