@@ -14,6 +14,13 @@
 [build.environment]
   # Node version for build and functions
   NODE_VERSION = "18"
+  
+  # Contentful CMS credentials
+  CONTENTFUL_SPACE_ID = "06ixxn1eb58x"
+  CONTENTFUL_ACCESS_TOKEN = "gN5Qqm_mgdx1cQoMv3F6vrkDyYlV-lx4aB1haZ54mq0"
+  
+  # OMDB API key for serverless function
+  OMDB_API_KEY = "daa92efe"
 
 # Serverless function settings
 [functions]
