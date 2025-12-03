@@ -9,7 +9,7 @@
   Updated: 2025-11-14
 */
 
-export default function () {
+module.exports = function () {
   console.log("⚠️  cms.js is deprecated - using cms-data.json instead");
   return { movies: [] };
-}
+};
