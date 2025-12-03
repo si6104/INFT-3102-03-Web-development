@@ -40,8 +40,13 @@ exports.handler = async (event, context) => {
     }
 
     // OMDB API configuration
-    // Note: In production, use environment variable: process.env.OMDB_API_KEY
-    const OMDB_API_KEY = 'daa92efe'; // Replace with your OMDB API key
+    // Read API key from environment variable set in Netlify
+    const OMDB_API_KEY = process.env.OMDB_API_KEY || 'daa92efe';
+    
+    if (!OMDB_API_KEY) {
+      throw new Error('OMDB_API_KEY environment variable is not set');
+    }
+    
     const apiUrl = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&t=${encodeURIComponent(title)}`;
 
     // Asynchronous API call using async/await
@@ -100,6 +105,11 @@ exports.handler = async (event, context) => {
   } catch (error) {
     // Handle any errors during the process
     console.error('Error in movie serverless function:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      title: event.queryStringParameters?.title
+    });
     
     return {
       statusCode: 500,
@@ -110,7 +120,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         error: 'Internal server error',
         message: 'Failed to fetch movie data. Please try again later.',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: error.message // Include error message for debugging
       })
     };
   }
