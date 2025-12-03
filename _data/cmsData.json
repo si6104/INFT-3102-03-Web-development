@@ -1,0 +1,69 @@
+{
+  "movies": [
+    {
+      "id": "4QPtPepKnA8qnGHnN0PH0T",
+      "title": "Hum Dil De Chuke Sanam",
+      "director": "Sanjay Leela Bhansali",
+      "releaseYear": 1999,
+      "genre": "Romance",
+      "rating": 8.5,
+      "description": "Visually stunning and emotionally rich. Strong performances and beautiful music make it a lasting classic.",
+      "poster": "https://images.ctfassets.net/06ixxn1eb58x/5MVxx20Ci0ELVwNQfvjbSj/39311d2fa37aa50ce5df36a746049691/Hum_Dil_De_Chuke_Sanam.webp",
+      "source": "contentful",
+      "createdAt": "2025-11-14T06:56:01.403Z",
+      "updatedAt": "2025-11-14T06:56:01.403Z"
+    },
+    {
+      "id": "5W4KVVzTNYvaOi7bLMCjWc",
+      "title": "Dilwale Dulhania Le Jayenge (DDLJ)",
+      "director": "Aditya Chopra",
+      "releaseYear": 1995,
+      "genre": "Romance",
+      "rating": 8.5,
+      "description": "A timeless love story that reshaped Bollywood romance. Iconic chemistry, unforgettable music, and a cultural milestone.",
+      "poster": "https://images.ctfassets.net/06ixxn1eb58x/1tQhp8qqkT7TJn1UkVU3dZ/e1a75dc0a205b1c13495882197e43ebf/Dilwale_Dulhania_Le_Jayenge.webp",
+      "source": "contentful",
+      "createdAt": "2025-11-14T06:55:01.301Z",
+      "updatedAt": "2025-11-14T06:55:01.301Z"
+    },
+    {
+      "id": "1JPshF47s2ybWZyNcEkc6r",
+      "title": "Lagaan",
+      "director": "Ashutosh Gowariker",
+      "releaseYear": 2001,
+      "genre": "Thriller",
+      "rating": 9,
+      "description": "Inspiring underdog tale set in colonial India. Masterful storytelling and an unforgettable climax.",
+      "poster": "https://images.ctfassets.net/06ixxn1eb58x/HKybipq0lyazlAnh00D8V/01eb272c9d4146243305dc7012a0b9f2/Lagaan.webp",
+      "source": "contentful",
+      "createdAt": "2025-11-14T06:53:04.426Z",
+      "updatedAt": "2025-11-14T06:53:04.426Z"
+    },
+    {
+      "id": "3MxTMc5PqtZBW2Fv1DXa7I",
+      "title": "Kal Ho Naa Ho",
+      "director": "Nikkhil Advani",
+      "releaseYear": 2003,
+      "genre": "Drama",
+      "rating": 8,
+      "description": "Emotional, heartwarming, and filled with memorable moments. A perfect mix of comedy, love, and tragedy.",
+      "poster": "https://images.ctfassets.net/06ixxn1eb58x/1hE8PSzJ1MqAoDCWm52jDo/11b57275f7d3194fd1459f7b16861f5a/Kal_Ho_Naa_Ho.webp",
+      "source": "contentful",
+      "createdAt": "2025-11-14T06:49:42.807Z",
+      "updatedAt": "2025-11-14T06:49:42.807Z"
+    },
+    {
+      "id": "7B5q1HgwlINkoL9aa0Z0HI",
+      "title": "Chak De! India",
+      "director": "Shimit Amin",
+      "releaseYear": 2007,
+      "genre": "Drama",
+      "rating": 9,
+      "description": "Powerful and motivational. Shah Rukh Khan delivers one of his best performances in this inspiring sports drama.",
+      "poster": "https://images.ctfassets.net/06ixxn1eb58x/4wiNXOPhaoJdDxVLt4fuRQ/f2d0666daeee033985bd27d0da78434a/Chak_De__India.webp",
+      "source": "contentful",
+      "createdAt": "2025-11-14T05:34:48.824Z",
+      "updatedAt": "2025-11-14T05:34:48.824Z"
+    }
+  ]
+}

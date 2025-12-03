@@ -1,0 +1,33 @@
+---
+layout: layouts/base.njk
+title: "Debug CMS Data"
+---
+
+---
+layout: layouts/base.njk
+title: "Debug CMS Data"
+---
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-4">Debug: CMS Data</h1>
+  
+  <h2 class="text-2xl font-bold mb-2">Available Data Keys:</h2>
+  <pre class="bg-gray-100 p-4 rounded overflow-auto">{{ "" | dump }}</pre>
+  
+  <h2 class="text-2xl font-bold mb-2">CMS Data (cmsData):</h2>
+  <p class="mb-4">{{ cmsData.movies | length }} movies</p>
+  <pre class="bg-gray-100 p-4 rounded overflow-auto">{{ cmsData | dump }}</pre>
+  
+  <h2 class="text-2xl font-bold mb-2">CMS Data (cms):</h2>
+  <p class="mb-4">{{ cms.movies | length }} movies</p>
+  
+  <h2 class="text-2xl font-bold mb-2 mt-8">All Movies Collection Count:</h2>
+  <p class="mb-4">{{ collections.allMovies | length }}</p>
+  
+  <h2 class="text-2xl font-bold mb-2">All Movies Collection:</h2>
+  {% for movie in collections.allMovies %}
+    <div class="bg-white p-4 mb-2 rounded shadow">
+      <strong>{{ movie.title }}</strong> - {{ movie.releaseYear }} ({{ movie.source }})
+    </div>
+  {% endfor %}
+</div>

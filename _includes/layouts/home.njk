@@ -1,0 +1,67 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ title }}</h1>
+    <p class="text-xl text-gray-600">Discover amazing movies from our collection</p>
+  </div>
+  
+  <section class="mb-12">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">Featured Movies</h2>
+      <a href="/all-movies/" class="text-blue-600 hover:text-blue-800 font-semibold">View All →</a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% set movieCount = 0 %}
+      {# Try to get movies from cmsData first #}
+      {% set cmsMovies = cmsData.movies if cmsData else [] %}
+      {% set allMovies = cmsMovies %}
+      {% for movie in allMovies %}
+        {% if movieCount < 6 %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+          <a href="/movies/{{ movie.title | slugify if movie.title else (movie.id or movie.page.fileSlug) }}/" class="block">
+            <div class="relative">
+              <img 
+                src="{{ movie.poster or movie.data.poster or movie.image or movie.data.image or 'https://via.placeholder.com/300x450' }}" 
+                alt="{{ movie.title or movie.data.title }}" 
+                class="w-full h-96 object-cover"
+              >
+              {% if movie.source == "contentful" or movie.data.source == "contentful" %}
+                <span class="absolute top-2 right-2 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  Contentful
+                </span>
+              {% else %}
+                <span class="absolute top-2 right-2 bg-gray-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  Local
+                </span>
+              {% endif %}
+            </div>
+            <div class="p-4">
+              <h3 class="text-xl font-bold text-gray-900 mb-2">{{ movie.title or movie.data.title }}</h3>
+              <p class="text-gray-600 text-sm mb-2">
+                <span class="font-semibold">Director:</span> {{ movie.director or movie.data.director }}
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500 text-sm">{{ movie.releaseYear or movie.data.releaseYear or movie.data.year }}</span>
+                <span class="bg-yellow-400 text-yellow-900 text-sm font-bold px-2 py-1 rounded">
+                  ⭐ {{ movie.rating or movie.data.rating }}
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% set movieCount = movieCount + 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  
+  <div class="text-center">
+    <a href="/all-movies/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+      Browse All Movies
+    </a>
+  </div>
+</div>

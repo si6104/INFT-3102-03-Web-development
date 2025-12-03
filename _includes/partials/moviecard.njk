@@ -1,0 +1,31 @@
+<!-- 
+  File: moviecard.njk
+  Description: Partial template for displaying a single movie card.
+  Author: Sai Trivedi
+  Date: 2025-10-02
+-->
+
+<div class="movie-card">
+  <!-- Movie Poster (clickable, links to detail page) -->
+  {% if movie.data.image %}
+  <a href="{{ movie.url }}">
+    <img src="{{ movie.data.image }}" alt="{{ movie.data.title }}">
+  </a>
+  {% endif %}
+  
+  <!-- Movie Info Content -->
+  <div class="card-content">
+    <!-- Movie Title (linked to detail page) -->
+    <h3><a href="{{ movie.url }}">{{ movie.data.title }}</a></h3>
+    
+    <!-- Year, Genre, and Rating -->
+    <div class="movie-info">
+      <span class="year">{{ movie.data.year }}</span>
+      <span class="genre">{{ movie.data.genre }}</span>
+      <span class="rating">★ {{ movie.data.rating }}/5</span>
+    </div>
+    
+    <!-- Short Description/Excerpt -->
+    <p>{{ movie.data.excerpt }}</p>
+  </div>
+</div>

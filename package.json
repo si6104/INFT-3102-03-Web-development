@@ -1,0 +1,22 @@
+{
+  "name": "movielog",
+  "version": "1.0.0",
+  "description": "Personal movie collection and reviews",
+  "main": "eleventy.config.js",
+  "scripts": {
+    "fetch-cms": "node fetch-cms-data.js",
+    "prebuild": "npm run fetch-cms",
+    "build": "eleventy",
+    "prestart": "npm run fetch-cms",
+    "start": "eleventy --serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "dotenv": "^16.3.1",
+    "node-fetch": "^2.7.0"
+  }
+}

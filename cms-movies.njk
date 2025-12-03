@@ -1,0 +1,19 @@
+---
+pagination:
+  data: cmsData.movies
+  size: 1
+  alias: movie
+layout: layouts/movie.njk
+permalink: "/movies/{{ movie.title | slugify }}/"
+eleventyComputed:
+  title: "{{ movie.title }}"
+  director: "{{ movie.director }}"
+  releaseYear: "{{ movie.releaseYear }}"
+  genre: "{{ movie.genre }}"
+  rating: "{{ movie.rating }}"
+  description: "{{ movie.description }}"
+  poster: "{{ movie.poster }}"
+  image: "{{ movie.poster }}"
+  source: "contentful"
+  year: "{{ movie.releaseYear }}"
+---

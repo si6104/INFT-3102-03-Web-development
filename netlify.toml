@@ -1,0 +1,53 @@
+# Netlify Configuration
+# This file configures the build process and serverless functions for Netlify deployment
+
+[build]
+  # Build command to run
+  command = "npm run build"
+  
+  # Directory to publish (output of Eleventy build)
+  publish = "_site"
+  
+  # Directory where serverless functions are located
+  functions = "netlify/functions"
+
+[build.environment]
+  # Node version for build and functions
+  NODE_VERSION = "18"
+
+# Serverless function settings
+[functions]
+  # Directory where functions are stored
+  directory = "netlify/functions"
+  
+  # Include node_modules in function deployment
+  node_bundler = "esbuild"
+
+# Headers for security and caching
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Redirect rules (optional)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/movie.njk",
+  "tags": "movies"
+}

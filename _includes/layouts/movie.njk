@@ -1,0 +1,155 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container mx-auto px-4 py-8">
+  <article class="max-w-4xl mx-auto">
+    <!-- Back Navigation -->
+    <a href="/all-movies/" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold mb-6">
+      ← Back to all movies
+    </a>
+    
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <!-- Movie Header -->
+      <div class="md:flex">
+        <!-- Poster -->
+        <div class="md:w-1/3">
+          <img 
+            src="{{ poster or data.poster or image or 'https://via.placeholder.com/300x450' }}" 
+            alt="{{ title or data.title }}" 
+            class="w-full h-auto object-cover cursor-pointer hover:opacity-90 transition-opacity" 
+            id="moviePoster"
+          >
+        </div>
+        
+        <!-- Movie Info -->
+        <div class="md:w-2/3 p-8">
+          <div class="flex justify-between items-start mb-4">
+            <h1 class="text-4xl font-bold text-gray-900">{{ title or data.title }}</h1>
+            {% if source == "contentful" or data.source == "contentful" %}
+              <span class="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                Contentful
+              </span>
+            {% else %}
+              <span class="bg-gray-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                Local
+              </span>
+            {% endif %}
+          </div>
+          
+          <div class="space-y-4 mb-6">
+            <div class="flex items-center">
+              <span class="font-semibold text-gray-700 w-32">Director:</span>
+              <span class="text-gray-900">{{ director or data.director }}</span>
+            </div>
+            
+            <div class="flex items-center">
+              <span class="font-semibold text-gray-700 w-32">Release Year:</span>
+              <span class="text-gray-900">{{ releaseYear or data.releaseYear or year or data.year }}</span>
+            </div>
+            
+            <div class="flex items-center">
+              <span class="font-semibold text-gray-700 w-32">Genre:</span>
+              <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ genre or data.genre }}
+              </span>
+            </div>
+            
+            <div class="flex items-center">
+              <span class="font-semibold text-gray-700 w-32">Rating:</span>
+              <span class="bg-yellow-400 text-yellow-900 font-bold px-3 py-1 rounded">
+                ⭐ {{ rating or data.rating }}/10
+              </span>
+            </div>
+          </div>
+
+          <!-- Dynamic Live Data Section (Loaded via Serverless Function) -->
+          <div class="border-t border-gray-200 pt-4 mb-6 bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg" data-movie-title="{{ title or data.title }}">
+            <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+              </svg>
+              Live OMDB Data
+            </h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-40">IMDb Rating (Live):</span>
+                <span class="text-gray-900" id="live-rating">Loading...</span>
+              </div>
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-40">Runtime:</span>
+                <span class="text-gray-900" id="live-runtime">Loading...</span>
+              </div>
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-40">Genre (OMDB):</span>
+                <span class="text-gray-900" id="live-genre">Loading...</span>
+              </div>
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-40">Actors:</span>
+                <span class="text-gray-900" id="live-actors">Loading...</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-semibold text-gray-700 mb-1">Plot Summary:</span>
+                <span class="text-gray-900 italic" id="live-plot">Loading...</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-3 italic">
+              💡 This data is fetched dynamically from OMDB API via Netlify serverless function
+            </p>
+          </div>
+          
+          <div class="border-t border-gray-200 pt-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Description</h2>
+            <div class="text-gray-700 leading-relaxed">
+              {% if description or data.description %}
+                <p>{{ description or data.description }}</p>
+              {% endif %}
+              {{ content | safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<!-- Dynamic Content Loading Script -->
+<script src="/js/live.js"></script>
+
+<!-- Lightbox for Poster -->
+<div id="lightbox" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
+  <span class="absolute top-4 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300" id="closeLightbox">&times;</span>
+  <img class="max-w-full max-h-full object-contain" id="lightboxImg">
+</div>
+
+<script>
+  const poster = document.getElementById('moviePoster');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const close = document.getElementById('closeLightbox');
+  
+  if (poster) {
+    poster.onclick = function() {
+      lightbox.classList.remove('hidden');
+      lightboxImg.src = this.src;
+    }
+  }
+  
+  close.onclick = function() {
+    lightbox.classList.add('hidden');
+  }
+  
+  lightbox.onclick = function(e) {
+    if (e.target === lightbox || e.target === close) {
+      lightbox.classList.add('hidden');
+    }
+  }
+  
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+      lightbox.classList.add('hidden');
+    }
+  });
+</script>
