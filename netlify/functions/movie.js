@@ -41,7 +41,7 @@ exports.handler = async (event, context) => {
 
     // OMDB API configuration
     // Read API key from environment variable set in Netlify
-    const OMDB_API_KEY = process.env.OMDB_API_KEY || 'daa92efe';
+    const OMDB_API_KEY = process.env.OMDB_API_KEY || '3267c31a';
     
     if (!OMDB_API_KEY) {
       throw new Error('OMDB_API_KEY environment variable is not set');

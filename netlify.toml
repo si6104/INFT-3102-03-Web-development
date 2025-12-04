@@ -20,7 +20,7 @@
   CONTENTFUL_ACCESS_TOKEN = "gN5Qqm_mgdx1cQoMv3F6vrkDyYlV-lx4aB1haZ54mq0"
   
   # OMDB API key for serverless function
-  OMDB_API_KEY = "daa92efe"
+  OMDB_API_KEY = "3267c31a"
 
 # Serverless function settings
 [functions]
