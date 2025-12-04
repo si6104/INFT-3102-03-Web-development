@@ -2,6 +2,8 @@
 
 A movie collection website built with Eleventy, Contentful CMS, and Netlify Serverless Functions, demonstrating serverless computing, asynchronous programming, dynamic content loading, and state management.
 
+**🚀 Live Demo**: [https://693102ce20186a58fba0b553--movvieverse.netlify.app/](https://693102ce20186a58fba0b553--movvieverse.netlify.app/)
+
 ## Quick Start
 
 ```bash
