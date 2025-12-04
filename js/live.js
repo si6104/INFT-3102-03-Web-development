@@ -118,15 +118,18 @@ async function loadLiveMovieData() {
       // Try to parse error as JSON
       try {
         const errorData = await response.json();
-        throw new Error(errorData.message || `HTTP ${response.status}`);
+        console.error('Error response from function:', errorData);
+        throw new Error(errorData.message || errorData.error || `HTTP ${response.status}`);
       } catch (e) {
+        if (e.message.includes('Serverless function')) throw e;
+        console.error('Could not parse error response:', e);
         throw new Error(`Failed to load data (HTTP ${response.status})`);
       }
     }
 
     // Parse JSON response asynchronously
     const movieData = await response.json();
-
+    
     console.log('✅ Successfully fetched live movie data:', movieData);
 
     // ============================================
@@ -224,7 +227,14 @@ function updateUIWithError(errorMessage) {
   // Display error message if plot element exists
   const plotElement = document.getElementById('live-plot');
   if (plotElement) {
-    plotElement.textContent = `Unable to load live data: ${errorMessage}`;
+    // Check if it's a movie not found error
+    if (errorMessage.includes('not found') || errorMessage.includes('404')) {
+      plotElement.textContent = 'This movie is not available in OMDB database (primarily Hollywood movies). Try viewing a Hollywood movie like "Inception" or "The Matrix" to see live data.';
+    } else if (errorMessage.includes('not available')) {
+      plotElement.textContent = 'Live data available only on Netlify deployment. This movie may also not be in OMDB database.';
+    } else {
+      plotElement.textContent = `Unable to load live data: ${errorMessage}`;
+    }
     plotElement.style.color = '#d32f2f';
   }
 
